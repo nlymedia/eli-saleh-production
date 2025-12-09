@@ -1,26 +1,54 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
-import { HomeIcon } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+
 const NotFound = () => {
-  return <div className="min-h-[70vh] flex items-center justify-center bg-gray-50">
+  const { language } = useLanguage();
+  
+  const homePath = language === 'fr' ? '/fr' : '/';
+  const contactPath = language === 'fr' ? '/fr/contact' : '/contact';
+  
+  const content = {
+    en: {
+      title: '404',
+      subtitle: 'Page Not Found',
+      description: "The page you're looking for doesn't exist or has been moved.",
+      returnHome: 'Return to Home',
+      contactUs: 'Contact Us',
+    },
+    fr: {
+      title: '404',
+      subtitle: 'Page Non Trouvée',
+      description: "La page que vous recherchez n'existe pas ou a été déplacée.",
+      returnHome: "Retour à l'Accueil",
+      contactUs: 'Contactez-Nous',
+    },
+  };
+
+  const t = content[language];
+
+  return (
+    <div className="min-h-[70vh] flex items-center justify-center bg-gray-50">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="text-9xl font-light text-black mb-4">404</h1>
-        <h2 className="text-3xl font-light text-gray-900 mb-6">
-          Page Not Found
+        <h1 className="text-9xl font-light text-[#141926] mb-4">{t.title}</h1>
+        <h2 className="text-3xl font-light text-[#141926] mb-6">
+          {t.subtitle}
         </h2>
         <p className="text-xl text-gray-600 max-w-lg mx-auto mb-8">
-          The page you're looking for doesn't exist or has been moved.
+          {t.description}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button to="/" icon={<HomeIcon size={16} />}>
-            Return to Home
+          <Button to={homePath}>
+            {t.returnHome}
           </Button>
-          <Button to="/contact" variant="outline">
-            Contact Us
+          <Button to={contactPath} variant="outline">
+            {t.contactUs}
           </Button>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default NotFound;

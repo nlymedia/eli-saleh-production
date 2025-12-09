@@ -17,8 +17,8 @@ const Footer = () => {
           </div>
           {/* Contact */}
           <div className="text-sm">
-            <p className="mb-1">info@drelisaleh.com</p>
-            <p>(514) 555-1234</p>
+            <p className="mb-1"><a href="mailto:info@elisalehmd.com" className="hover:underline">info@elisalehmd.com</a></p>
+            <p><a href="tel:+15144005124" className="hover:underline">(514) 400-5124</a></p>
           </div>
           {/* Social Media (moved to replace Hours) */}
           <div className="text-sm">
