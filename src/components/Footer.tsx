@@ -12,8 +12,22 @@ const Footer = () => {
           </div>
           {/* Address */}
           <div className="text-sm">
-            <p className="mb-1">123 Medical Avenue, Suite 500</p>
-            <p>Montréal, QC H1A 1A1</p>
+            <a 
+              href="https://www.google.com/maps/dir//750+Lucerne+Rd,+Mount+Royal,+QC+H3R+2H6" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:underline block mb-1"
+            >
+              750 Lucerne Rd.
+            </a>
+            <a 
+              href="https://www.google.com/maps/dir//750+Lucerne+Rd,+Mount+Royal,+QC+H3R+2H6" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:underline block"
+            >
+              Mont Royal, QC, H3R 2H6
+            </a>
           </div>
           {/* Contact */}
           <div className="text-sm">

@@ -21,8 +21,8 @@ const Contact = () => {
         description: "Reach out to schedule your consultation or to have any questions answered by our dedicated team.",
         location: {
           title: "Office Location",
-          address1: "123 Medical Avenue, Suite 500",
-          address2: "Montréal, QC H1A 1A1",
+          address1: "750 Lucerne Rd.",
+          address2: "Mont Royal, QC, H3R 2H6",
         },
         phone: {
           title: "Phone",
@@ -127,8 +127,8 @@ const Contact = () => {
           "Contactez-nous pour planifier votre consultation ou pour que notre équipe dévouée réponde à vos questions.",
         location: {
           title: "Adresse du Bureau",
-          address1: "123 Avenue Médicale, Suite 500",
-          address2: "Montréal, QC H1A 1A1",
+          address1: "750 Lucerne Rd.",
+          address2: "Mont Royal, QC, H3R 2H6",
         },
         phone: {
           title: "Téléphone",
@@ -253,8 +253,22 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-light mb-1">{t.contactInfo.location.title}</h3>
-                    <p className="text-gray-600">{t.contactInfo.location.address1}</p>
-                    <p className="text-gray-600">{t.contactInfo.location.address2}</p>
+                    <a 
+                      href="https://www.google.com/maps/dir//750+Lucerne+Rd,+Mount+Royal,+QC+H3R+2H6" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:underline block"
+                    >
+                      {t.contactInfo.location.address1}
+                    </a>
+                    <a 
+                      href="https://www.google.com/maps/dir//750+Lucerne+Rd,+Mount+Royal,+QC+H3R+2H6" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:underline block"
+                    >
+                      {t.contactInfo.location.address2}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start">
