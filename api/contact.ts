@@ -51,7 +51,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Email content
     const mailOptions = {
       from: `"Dr. Saleh Website" <${process.env.GMAIL_USER}>`,
-      to: 'justin@nly.media',
+      to: process.env.GMAIL_USER,
       replyTo: email,
       subject: `New Consultation Request: ${service}`,
       html: `
