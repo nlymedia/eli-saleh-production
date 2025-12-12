@@ -230,7 +230,7 @@ const Services = () => {
           icon: "/icons/face-neck-lift.svg"
         },
         {
-          name: 'Brow\nLift',
+          name: 'Brow Lift',
           description: 'Elevate the brows and smooth forehead wrinkles for a refreshed appearance.',
           icon: "/icons/brow-lift.svg"
         },
@@ -427,54 +427,61 @@ const Services = () => {
     };
   }, [serviceCategories]);
 
-  const getCategoryContent = () => {
-    const category = serviceCategories.find(cat => cat.id === activeCategory);
-    if (!category) return null;
+  const getAllCategoryContent = () => {
     return (
-      <div className="mt-12">
-        <div className="mb-8">
-          <h2 className="text-3xl font-light mb-2">{category.title}</h2>
-          <p className="text-gray-600 max-w-3xl">{category.description}</p>
-        </div>
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Image on the left */}
-          <div className="lg:w-1/2">
-            <div className="rounded-lg overflow-hidden h-full">
-              <img
-                ref={el => {
-                  if (el) imageRefs.current.set(category.id, el);
-                }}
-                src={category.image}
-                alt={category.title}
-                className="w-full h-full object-cover"
-              />
+      <div className="mt-12 relative">
+        {serviceCategories.map((category) => (
+          <div 
+            key={category.id}
+            className={activeCategory === category.id ? 'block' : 'hidden'}
+          >
+            <div className="mb-8">
+              <h2 className="text-3xl font-light mb-2">{category.title}</h2>
+              <p className="text-gray-600 max-w-3xl">{category.description}</p>
             </div>
-          </div>
-          {/* Procedures on the right */}
-          <div className="lg:w-1/2 flex">
-            <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4 w-full content-start">
-              {category.procedures.map((procedure, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-between bg-gray-50 p-3 sm:p-4 aspect-square"
-                >
-                  <div className={`flex-1 flex items-center justify-center w-full overflow-hidden ${procedure.icon.startsWith('/icons/') ? 'sm:pt-[18px] sm:pb-[20px]' : ''}`}>
-                    <img
-                      src={procedure.icon}
-                      alt={procedure.name}
-                      className={procedure.icon.startsWith('/icons/') 
-                        ? "w-full h-full object-contain service-icon-scale" 
-                        : "w-6 h-6 sm:w-8 sm:h-8 text-gray-900 service-icon-scale"}
-                    />
-                  </div>
-                  <h3 className="text-xs sm:text-sm font-normal text-center flex items-center justify-center w-full px-1 whitespace-pre-line">
-                    {procedure.name}
-                  </h3>
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Image on the left */}
+              <div className="lg:w-1/2">
+                <div className="rounded-lg overflow-hidden h-full">
+                  <img
+                    ref={el => {
+                      if (el) imageRefs.current.set(category.id, el);
+                    }}
+                    src={category.image}
+                    alt={category.title}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
                 </div>
-              ))}
+              </div>
+              {/* Procedures on the right */}
+              <div className="lg:w-1/2 flex">
+                <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4 w-full content-start">
+                  {category.procedures.map((procedure, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-between bg-gray-50 p-3 sm:p-4 aspect-square"
+                    >
+                      <div className={`flex-1 flex items-center justify-center w-full overflow-hidden ${procedure.icon.startsWith('/icons/') ? 'py-[28px] min-[801px]:py-[60px] lg:py-0 lg:pt-[18px] lg:pb-[20px]' : ''}`}>
+                        <img
+                          src={procedure.icon}
+                          alt={procedure.name}
+                          loading="eager"
+                          className={procedure.icon.startsWith('/icons/') 
+                            ? "w-full h-full object-contain service-icon-scale" 
+                            : "w-6 h-6 sm:w-8 sm:h-8 text-gray-900 service-icon-scale"}
+                        />
+                      </div>
+                      <h3 className="text-xs sm:text-sm font-normal text-center flex items-center justify-center w-full px-1 whitespace-pre-line">
+                        {procedure.name}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     );
   };
@@ -574,7 +581,7 @@ const Services = () => {
       </section>
       {/* Category Content */}
       <section className="py-12">
-        <div className="mx-auto px-4 max-w-7xl lg:max-w-none lg:px-4 xl:max-w-7xl xl:px-4">{getCategoryContent()}</div>
+        <div className="mx-auto px-4 max-w-7xl lg:max-w-none lg:px-4 xl:max-w-7xl xl:px-4">{getAllCategoryContent()}</div>
       </section>
       {/* Patient-Centered Approach Section */}
       <section className="py-20 bg-gray-50">
