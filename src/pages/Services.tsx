@@ -61,7 +61,7 @@ const Services = () => {
         {
           name: 'Abaissement de la ligne des cheveux',
           description: 'Réduisez la hauteur du front en avançant la ligne des cheveux pour améliorer les proportions faciales.',
-          icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9 15l3-3m0 0l3 3m-3-3v7'/%3E%3C/svg%3E"
+          icon: "/icons/forehead-reduction.svg"
         }
       ]
     },
@@ -92,7 +92,7 @@ const Services = () => {
           icon: "/icons/inverted-nipple.svg"
         },
         {
-          name: 'Reconstruction mammaire',
+          name: 'Réduction/Reconstruction mammaire',
           description: 'Restaurez l\'apparence des seins après une mastectomie ou une autre chirurgie mammaire.',
           icon: "/icons/breast-reconstruction.svg"
         },
@@ -100,11 +100,6 @@ const Services = () => {
           name: 'Réduction/Reconstruction\ndes seins tubéreux',
           description: 'Corrigez la déformation des seins tubéreux pour améliorer la forme et la symétrie.',
           icon: "/icons/tuberous-breast.svg"
-        },
-        {
-          name: 'Réduction mammaire',
-          description: 'Réduisez la taille des seins pour un meilleur confort et de meilleures proportions.',
-          icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M20 12H4'/%3E%3C/svg%3E"
         },
         {
           name: 'Correction de l\'asymétrie mammaire',
@@ -242,7 +237,7 @@ const Services = () => {
         {
           name: 'Hairline Lowering (Forehead Reduction)',
           description: 'Reduce forehead height by advancing the hairline for improved facial proportions.',
-          icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9 15l3-3m0 0l3 3m-3-3v7'/%3E%3C/svg%3E"
+          icon: "/icons/forehead-reduction.svg"
         }
       ]
     },
@@ -273,7 +268,7 @@ const Services = () => {
           icon: "/icons/inverted-nipple.svg"
         },
         {
-          name: 'Breast Reconstruction',
+          name: 'Breast Reduction/Reconstruction',
           description: 'Restore breast appearance after mastectomy or other breast surgery.',
           icon: "/icons/breast-reconstruction.svg"
         },
@@ -281,11 +276,6 @@ const Services = () => {
           name: 'Tuberous Breast\nReduction/Reconstruction',
           description: 'Correct tuberous breast deformity for improved shape and symmetry.',
           icon: "/icons/tuberous-breast.svg"
-        },
-        {
-          name: 'Breast Reduction',
-          description: 'Reduce breast size for improved comfort and proportions.',
-          icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M20 12H4'/%3E%3C/svg%3E"
         },
         {
           name: 'Breast Asymmetry Correction',

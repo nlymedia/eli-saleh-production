@@ -1,14 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Button from '../components/Button';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const NotFound = () => {
   const { language } = useLanguage();
+  const location = useLocation();
   
-  const homePath = language === 'fr' ? '/fr' : '/';
-  const contactPath = language === 'fr' ? '/fr/contact' : '/contact';
+  // Detect French routes from URL prefix for proper 404 language handling
+  const isFrenchRoute = location.pathname.startsWith('/fr');
+  const displayLanguage = isFrenchRoute ? 'fr' : language;
   
+  const homePath = displayLanguage === 'fr' ? '/fr' : '/';
+  const contactPath = displayLanguage === 'fr' ? '/fr/contact' : '/contact';
   const content = {
     en: {
       title: '404',
@@ -26,7 +30,7 @@ const NotFound = () => {
     },
   };
 
-  const t = content[language];
+  const t = content[displayLanguage];
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center bg-gray-50">

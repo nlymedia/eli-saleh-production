@@ -17,6 +17,7 @@ const ContactForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Refs for custom validation messages
   const nameRef = useRef<HTMLInputElement>(null);
@@ -117,12 +118,32 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: isFr ? undefined : formData.name,
+          firstName: isFr ? formData.firstName : undefined,
+          lastName: isFr ? formData.lastName : undefined,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       setSubmitted(true);
       setFormData({
         name: '',
@@ -133,7 +154,13 @@ const ContactForm = () => {
         service: '',
         message: ''
       });
-    }, 1500);
+    } catch (err) {
+      setError(isFr 
+        ? 'Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.'
+        : 'An error occurred. Please try again or contact us by phone.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const serviceOptions = [
@@ -341,6 +368,11 @@ const ContactForm = () => {
           placeholder={content.messagePlaceholder}
         />
       </div>
+      {error && (
+        <div className="bg-red-50 text-red-700 p-4 rounded-md border border-red-100">
+          {error}
+        </div>
+      )}
       <div className="text-sm text-gray-600">
         <p>{content.privacyNotice}</p>
       </div>

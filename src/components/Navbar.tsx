@@ -100,19 +100,19 @@ const Navbar = () => {
         </button>
       </div>
       {/* Mobile Navigation */}
-      <div className={`md:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`md:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="container mx-auto px-4 py-4 flex flex-col space-y-5">
           {navLinks.map(link => (
             <Link 
               key={link.path} 
               to={link.path} 
-              className={`text-sm font-medium py-2 transition-all hover:text-black ${location.pathname === link.path ? 'text-black' : 'text-gray-600'}`} 
+              className={`text-xl font-medium py-3 transition-all hover:text-black border-b border-gray-100 ${location.pathname === link.path ? 'text-black' : 'text-gray-600'}`} 
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <div className="py-2">
+          <div className="py-2 w-fit">
             <LanguageSelector />
           </div>
           <Link 
