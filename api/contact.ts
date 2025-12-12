@@ -57,8 +57,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `
         <h2>New Consultation Request</h2>
         <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+1${phone.replace(/\D/g, '')}">${escapeHtml(phone)}</a></p>
         <p><strong>Service of Interest:</strong> ${escapeHtml(service)}</p>
         <h3>Message:</h3>
         <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>

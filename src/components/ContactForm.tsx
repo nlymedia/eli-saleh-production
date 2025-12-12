@@ -110,11 +110,27 @@ const ContactForm = () => {
     sendAnother: 'Send Another Message'
   };
 
+  // Format phone number: XXX-XXX-XXXX
+  const formatPhoneNumber = (value: string): string => {
+    const digits = value.replace(/\D/g, '').slice(0, 10);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setFormData(prev => ({
+      ...prev,
+      phone: formatted
     }));
   };
 
@@ -175,8 +191,8 @@ const ContactForm = () => {
 
   if (submitted) {
     return (
-      <div className="bg-green-50 text-green-700 p-6 rounded-md border border-green-100 text-center">
-        <svg className="w-12 h-12 mx-auto text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-[#141926]/5 text-[#141926] p-6 rounded-md border border-[#141926]/10 text-center">
+        <svg className="w-12 h-12 mx-auto text-[#141926] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
         <h3 className="text-xl font-semibold mb-2">{content.thankYou}</h3>
@@ -237,8 +253,10 @@ const ContactForm = () => {
                 id="phone"
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
                 required
+                maxLength={12}
+                inputMode="numeric"
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
               />
             </div>
@@ -324,8 +342,10 @@ const ContactForm = () => {
                 id="phone"
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
                 required
+                maxLength={12}
+                inputMode="numeric"
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
               />
             </div>
