@@ -9,7 +9,30 @@ interface ContactFormData {
   phone: string;
   service: string;
   message: string;
+  language?: 'en' | 'fr';
 }
+
+const translations = {
+  en: {
+    subject: 'New Consultation Request',
+    heading: 'New Consultation Request',
+    name: 'Name',
+    email: 'Email',
+    phone: 'Phone',
+    serviceOfInterest: 'Service of Interest',
+    message: 'Message'
+  },
+  fr: {
+    subject: 'Nouvelle demande de consultation',
+    heading: 'Nouvelle demande de consultation',
+    lastName: 'Nom',
+    firstName: 'Prénom',
+    email: 'Courriel',
+    phone: 'Téléphone',
+    serviceOfInterest: "Service d'intérêt",
+    message: 'Message'
+  }
+};
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Only allow POST requests
@@ -18,9 +41,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, firstName, lastName, email, phone, service, message }: ContactFormData = req.body;
+    const { name, firstName, lastName, email, phone, service, message, language = 'en' }: ContactFormData = req.body;
 
-    // Determine the full name (English uses 'name', French uses firstName + lastName)
+    const isFr = language === 'fr';
+    const t = isFr ? translations.fr : translations.en;
+
+    // Determine the full name for validation (English uses 'name', French uses firstName + lastName)
     const fullName = name || `${firstName || ''} ${lastName || ''}`.trim();
 
     // Validate required fields
@@ -48,30 +74,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     });
 
+    // Build name section based on language
+    const nameHtml = isFr
+      ? `<p><strong>${translations.fr.lastName}:</strong> ${escapeHtml(lastName || '')}</p>
+         <p><strong>${translations.fr.firstName}:</strong> ${escapeHtml(firstName || '')}</p>`
+      : `<p><strong>${translations.en.name}:</strong> ${escapeHtml(name || '')}</p>`;
+
+    const namePlainText = isFr
+      ? `${translations.fr.lastName}: ${lastName || ''}\n${translations.fr.firstName}: ${firstName || ''}`
+      : `${translations.en.name}: ${name || ''}`;
+
     // Email content
     const mailOptions = {
       from: `"Dr. Saleh Website" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
       replyTo: email,
-      subject: `New Consultation Request: ${service}`,
+      subject: `${t.subject}: ${service}`,
       html: `
-        <h2>New Consultation Request</h2>
-        <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
-        <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-        <p><strong>Phone:</strong> <a href="tel:+1${phone.replace(/\D/g, '')}">${escapeHtml(phone)}</a></p>
-        <p><strong>Service of Interest:</strong> ${escapeHtml(service)}</p>
-        <h3>Message:</h3>
+        <h2>${t.heading}</h2>
+        ${nameHtml}
+        <p><strong>${t.email}:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+        <p><strong>${t.phone}:</strong> <a href="tel:+1${phone.replace(/\D/g, '')}">${escapeHtml(phone)}</a></p>
+        <p><strong>${t.serviceOfInterest}:</strong> ${escapeHtml(service)}</p>
+        <h3>${t.message}:</h3>
         <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
       `,
       text: `
-New Consultation Request
+${t.heading}
 
-Name: ${fullName}
-Email: ${email}
-Phone: ${phone}
-Service of Interest: ${service}
+${namePlainText}
+${t.email}: ${email}
+${t.phone}: ${phone}
+${t.serviceOfInterest}: ${service}
 
-Message:
+${t.message}:
 ${message}
       `,
     };

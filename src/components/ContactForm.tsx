@@ -153,6 +153,7 @@ const ContactForm = () => {
           phone: formData.phone,
           service: formData.service,
           message: formData.message,
+          language: language,
         }),
       });
 
